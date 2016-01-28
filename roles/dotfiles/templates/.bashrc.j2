@@ -1,0 +1,56 @@
+# global .bashrc
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+if [[ $PS1 ]]; then
+    # bash completion
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    fi
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        . /etc/bash_completion
+    fi
+
+    # git prompt
+    if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]
+    then
+        source /usr/share/git-core/contrib/completion/git-prompt.sh
+    fi
+    if [ -f /usr/share/git/completion/git-prompt.sh ]
+    then
+        source /usr/share/git/completion/git-prompt.sh
+    fi
+fi
+
+# history stuff
+HISTCONTROL=ignoredups:ignorespace
+shopt -s histappend
+export HISTFILESIZE=500000
+export HISTSIZE=5000
+
+# check for window size updates
+shopt -s checkwinsize
+export PS1='\n[\t] <\u@\H:\w>$(__git_ps1)\n[\\$:$?] -> '
+
+# dircolors
+[[ ( -x /usr/bin/dircolors ) || ( -x /bin/dircolors ) ]] && {
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+}
+
+# aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias nohist='export HISTFILE=/dev/null'
+alias emacs-stop="emacsclient -e '(kill-emacs)'"
+alias iso-date="date '+%Y-%m-%d'"
+alias cal='cal -m'
+alias tmux='tmux -u'
+alias screen="screen -e '^Bb'"
+alias serve='python -m SimpleHTTPServer'
+alias jsonpp='python -m json.tool'

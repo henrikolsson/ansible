@@ -1,0 +1,14 @@
+[user]
+  name = Henrik Olsson
+  email = henrik@fixme.se
+  signingkey = EFB0230F
+[alias]
+  incoming = "!git remote update -p; git log ..@{u}"
+  outgoing = log @{u}..
+  fl = log --graph --stat --decorate --all
+  st = status
+  ci = commit
+[push]
+  default = simple
+[color]
+  ui = auto

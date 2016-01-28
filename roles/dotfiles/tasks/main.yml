@@ -1,0 +1,15 @@
+- name: copy rest of files
+  template: src={{ item }}.j2 dest=~/{{ item }} owner=henrik group=henrik mode=0600
+  with_items:
+    - .spacemacs
+    - .bashrc
+    - .bash_profile
+    - .config/user-dirs.dirs
+    - .fonts.conf
+    - .gitconfig
+    - .hgignore
+    - .hgrc
+    - .lein/profiles.clj
+    - .ssh/config
+    - .xmodmap
+    - .Xresources
